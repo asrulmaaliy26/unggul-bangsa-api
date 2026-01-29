@@ -12,11 +12,36 @@ class HomeController extends Controller
     {
         return response()->json([
             'stats' => [
-                ['label' => 'Total Murid', 'value' => '2,400'],
-                ['label' => 'Guru & Dosen', 'value' => '150'],
-                ['label' => 'Gedung', 'value' => '12'],
-                ['label' => 'Alumni', 'value' => '10k+'],
+                'KAMPUS' => [
+                    ['label' => 'Total Mahasiswa', 'value' => 2400],
+                    ['label' => 'Dosen', 'value' => 150],
+                    ['label' => 'Gedung', 'value' => 12],
+                    ['label' => 'Alumni', 'value' => '10k+'],
+                ],
+                'MA' => [
+                    ['label' => 'Total Siswa', 'value' => 111900],
+                    ['label' => 'Guru', 'value' => 60],
+                    ['label' => 'Ruang Kelas', 'value' => 24],
+                ],
+                'SMPT' => [
+                    ['label' => 'Total Siswa', 'value' => 1200],
+                    ['label' => 'Guru', 'value' => 80],
+                    ['label' => 'Ruang Kelas', 'value' => 30],
+                    ['label' => 'Alumni', 'value' => '5k+'],
+                ],
+                'MI' => [
+                    ['label' => 'Total Siswa', 'value' => 11100],
+                    ['label' => 'Guru', 'value' => 60],
+                    ['label' => 'Ruang Kelas', 'value' => 24],
+                ],
+                'UMUM' => [
+                    ['label' => 'Total Siswa', 'value' => 11100],
+                    ['label' => 'Guru', 'value' => 60],
+                    ['label' => 'Ruang Kelas', 'value' => 24],
+                    ['label' => 'Alumni', 'value' => '10k+'],
+                ],
             ],
+
             'slides' => [
                 [
                     'image' => 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d',

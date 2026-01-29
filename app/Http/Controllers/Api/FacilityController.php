@@ -14,11 +14,11 @@ class FacilityController extends Controller
             'data' => [
                 [
                     'id' => 'f1',
-                    'name' => 'Lab Komputer SMA',
+                    'name' => 'Lab Komputer MA',
                     'type' => 'Ruang',
                     'description' => 'Lab modern IT',
                     'imageUrl' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998',
-                    'jenjang' => 'SMA'
+                    'jenjang' => 'MA'
                 ]
             ]
         ]);

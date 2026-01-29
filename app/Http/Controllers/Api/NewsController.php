@@ -11,14 +11,14 @@ class NewsController extends Controller
     private array $news = [
         [
             'id' => '1',
-            'title' => 'Siswa SMA Menangkan Olimpiade Sains Nasional',
+            'title' => 'Siswa MA Menangkan Olimpiade Sains Nasional',
             'excerpt' => 'Prestasi membanggakan kembali diraih...',
             'content' => 'Isi berita lengkap...',
             'date' => '24 Mei 2024',
             'views' => 1250,
             'imageUrl' => 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d',
             'category' => 'Prestasi',
-            'jenjang' => 'SMA'
+            'jenjang' => 'MA'
         ],
         [
             'id' => '2',

@@ -14,13 +14,13 @@ class ProjectController extends Controller
             'data' => [
                 [
                     'id' => 'p1',
-                    'title' => 'Irigasi IoT SMA',
+                    'title' => 'Irigasi IoT MA',
                     'category' => 'Sains & Teknologi',
                     'description' => 'Sistem irigasi otomatis berbasis IoT',
-                    'author' => 'Tim SMA',
+                    'author' => 'Tim MA',
                     'date' => 'Mei 2024',
                     'imageUrl' => 'https://images.unsplash.com/photo-1518770660439-4636190af475',
-                    'jenjang' => 'SMA'
+                    'jenjang' => 'MA'
                 ]
             ]
         ]);

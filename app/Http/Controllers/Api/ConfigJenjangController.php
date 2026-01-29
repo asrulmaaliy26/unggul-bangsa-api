@@ -17,16 +17,16 @@ class ConfigJenjangController extends Controller
                 'text' => 'text-emerald-600',
                 'type' => 'Madrasah Ibtidaiyah'
             ],
-            'SMP' => [
+            'SMPT' => [
                 'color' => 'sky',
-                'name' => 'SMP AL Hidayah',
+                'name' => 'SMPT AL Hidayah',
                 'bg' => 'bg-sky-600',
                 'text' => 'text-sky-600',
                 'type' => 'Sekolah Menengah Pertama'
             ],
-            'SMA' => [
+            'MA' => [
                 'color' => 'islamic-green',
-                'name' => 'SMA AL Hidayah',
+                'name' => 'MA AL Hidayah',
                 'bg' => 'bg-islamic-green-600',
                 'text' => 'text-islamic-green-600',
                 'type' => 'Sekolah Menengah Atas'
