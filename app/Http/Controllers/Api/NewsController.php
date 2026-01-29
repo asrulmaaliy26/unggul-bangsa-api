@@ -114,4 +114,10 @@ class NewsController extends Controller
 
         return response()->json(['data' => $item]);
     }
+
+    public function limit($count)
+    {
+        $limitedNews = array_slice($this->news, 0, $count);
+        return response()->json(['data' => $limitedNews]);
+    }
 }
