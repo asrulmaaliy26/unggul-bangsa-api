@@ -27,12 +27,7 @@ class CategoryController extends Controller
                 'Sosial Humaniora'
             ],
             'news_categories' => [
-                'Semua',
-                'Tafsir & Hadis',
-                'Sains Terapan',
-                'Ekonomi Syariah',
-                'Pendidikan',
-                'Sosial Humaniora'
+                'Semua', 'Akademik', 'Kegiatan', 'Pengumuman', 'Prestasi'
             ]
         ]);
     }
