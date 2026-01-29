@@ -58,7 +58,11 @@ class HomeController extends Controller
                     'title' => 'Inovasi Tanpa Batas',
                     'subtitle' => 'Riset dan teknologi dalam bingkai keislaman.'
                 ],
-            ]
+            ],
+            'news' => \App\Models\News::limit(3)->get(),
+            'projects' => \App\Models\Project::limit(3)->get(),
+            'journals' => \App\Models\Journal::limit(3)->get(),
+            'facilities' => \App\Models\Facility::limit(3)->get(),
         ]);
     }
 }
