@@ -25,9 +25,14 @@ class HomeController extends Controller
                 ],
                 [
                     'image' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9',
+                    'title' => 'Pendidikan Berkualitas',
+                    'subtitle' => 'Berdedikasi tinggi untuk masa depan gemilang.'
+                ],
+                [
+                    'image' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9',
                     'title' => 'Inovasi Tanpa Batas',
                     'subtitle' => 'Riset dan teknologi dalam bingkai keislaman.'
-                ]
+                ],
             ]
         ]);
     }

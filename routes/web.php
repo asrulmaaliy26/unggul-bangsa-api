@@ -12,7 +12,8 @@ use App\Http\Controllers\Api\{
     JournalController,
     FacilityController,
     AboutController,
-    CategoryController
+    CategoryController,
+    ConfigJenjangController
 };
 
 Route::get('/home', [HomeController::class, 'index']);
@@ -30,3 +31,5 @@ Route::get('/facilities', [FacilityController::class, 'index']);
 Route::get('/about/{jenjang}', [AboutController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
+
+Route::get('/jenjang', [ConfigJenjangController::class, 'levels']);
