@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->text('description');
-            $table->string('image_url');
-            $table->string('education_level');
+            $table->string('imageUrl');
+            $table->string('jenjang');
             $table->timestamps();
         });
     }

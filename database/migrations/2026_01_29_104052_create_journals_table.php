@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('score');
             $table->date('date');
             $table->boolean('is_best')->default(false);
-            $table->string('education_level');
+            $table->string('jenjang');
             $table->timestamps();
         });
     }

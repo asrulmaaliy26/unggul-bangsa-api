@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('author');
             $table->date('date');
-            $table->string('image_url');
-            $table->string('education_level'); // Standardizing on education_level
+            $table->string('imageUrl');
+            $table->string('jenjang'); // Standardizing on jenjang
             $table->json('documents')->nullable();
             $table->timestamps();
         });

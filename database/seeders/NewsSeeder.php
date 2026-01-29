@@ -17,7 +17,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-05-24',
                 'views' => 1250,
                 'category' => 'Prestasi',
-                'education_level' => 'MA',
+                'jenjang' => 'MA',
                 'main_image' => 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b',
@@ -31,7 +31,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-05-10',
                 'views' => 500,
                 'category' => 'Kegiatan',
-                'education_level' => 'MI',
+                'jenjang' => 'MI',
                 'main_image' => 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1588072432836-e10032774350',
@@ -45,7 +45,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-05-05',
                 'views' => 820,
                 'category' => 'Pelatihan',
-                'education_level' => 'MA',
+                'jenjang' => 'MA',
                 'main_image' => 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1519389950473-47ba0277781c',
@@ -58,7 +58,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-05-02',
                 'views' => 940,
                 'category' => 'Prestasi',
-                'education_level' => 'SMPT',
+                'jenjang' => 'SMPT',
                 'main_image' => 'https://images.unsplash.com/photo-1604882357278-7c5d2b8a52b8',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1517841905240-472988babdf9',
@@ -72,7 +72,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-04-28',
                 'views' => 1500,
                 'category' => 'Keagamaan',
-                'education_level' => 'UMUM',
+                'jenjang' => 'UMUM',
                 'main_image' => 'https://images.unsplash.com/photo-1544717305-2782549b5136',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
@@ -86,7 +86,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-04-20',
                 'views' => 1100,
                 'category' => 'Prestasi',
-                'education_level' => 'MA',
+                'jenjang' => 'MA',
                 'main_image' => 'https://images.unsplash.com/photo-1581092919534-1c6c7f0d6f47',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1581092334504-1c6c7f0d6f48',
@@ -100,7 +100,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-04-15',
                 'views' => 430,
                 'category' => 'Kegiatan',
-                'education_level' => 'MI',
+                'jenjang' => 'MI',
                 'main_image' => 'https://images.unsplash.com/photo-1588072432836-e10032774350',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1523050854058-8df90110c9f1',
@@ -113,7 +113,7 @@ class NewsSeeder extends Seeder
                 'date' => '2024-04-08',
                 'views' => 670,
                 'category' => 'Seminar',
-                'education_level' => 'UMUM',
+                'jenjang' => 'UMUM',
                 'main_image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f',
                 'gallery' => [
                     'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',

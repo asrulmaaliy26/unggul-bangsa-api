@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('views')->default(0);
             $table->string('category');
-            $table->string('education_level');
+            $table->string('jenjang');
             $table->string('main_image');
             $table->json('gallery')->nullable();
             $table->timestamps();

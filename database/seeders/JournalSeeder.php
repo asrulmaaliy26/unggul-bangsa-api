@@ -19,7 +19,7 @@ class JournalSeeder extends Seeder
                 'score' => 98,
                 'date' => '2024-06-01',
                 'is_best' => true,
-                'education_level' => 'KAMPUS',
+                'jenjang' => 'KAMPUS',
             ],
             [
                 'title' => 'Eksperimen Bio-Gas Sekolah',
@@ -30,7 +30,7 @@ class JournalSeeder extends Seeder
                 'score' => 92,
                 'date' => '2024-05-01',
                 'is_best' => false,
-                'education_level' => 'MA',
+                'jenjang' => 'MA',
             ],
             [
                 'title' => 'AI untuk Prediksi Cuaca Lokal',
@@ -41,7 +41,7 @@ class JournalSeeder extends Seeder
                 'score' => 95,
                 'date' => '2024-04-01',
                 'is_best' => false,
-                'education_level' => 'KAMPUS',
+                'jenjang' => 'KAMPUS',
             ],
             [
                 'title' => 'Pengaruh Tahfidz terhadap Prestasi Akademik',
@@ -52,7 +52,7 @@ class JournalSeeder extends Seeder
                 'score' => 90,
                 'date' => '2024-03-01',
                 'is_best' => false,
-                'education_level' => 'MA',
+                'jenjang' => 'MA',
             ],
         ];
 

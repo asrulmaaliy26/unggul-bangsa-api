@@ -16,8 +16,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Sistem irigasi otomatis berbasis IoT untuk pertanian sekolah.',
                 'author' => 'Tim MA',
                 'date' => '2024-05-01',
-                'image_url' => 'https://images.unsplash.com/photo-1518770660439-4636190af475',
-                'education_level' => 'MA',
+                'imageUrl' => 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+                'jenjang' => 'MA',
                 'documents' => [
                     [
                         'type' => 'proposal',
@@ -39,8 +39,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Pengenalan sistem irigasi otomatis sederhana untuk siswa MI.',
                 'author' => 'Tim MI',
                 'date' => '2024-05-01',
-                'image_url' => 'https://images.unsplash.com/photo-1518770660439-4636190af475',
-                'education_level' => 'MI',
+                'imageUrl' => 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+                'jenjang' => 'MI',
                 'documents' => [
                     [
                         'type' => 'proposal',
@@ -56,8 +56,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Robot otomatis untuk membersihkan lantai masjid sekolah.',
                 'author' => 'Ekstrakurikuler Robotik MA',
                 'date' => '2024-04-01',
-                'image_url' => 'https://images.unsplash.com/photo-1581091012184-5c7c41c6e0c6',
-                'education_level' => 'MA',
+                'imageUrl' => 'https://images.unsplash.com/photo-1581091012184-5c7c41c6e0c6',
+                'jenjang' => 'MA',
             ],
             [
                 'title' => 'Aplikasi Hafalan Qur’an',
@@ -65,8 +65,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Aplikasi mobile untuk monitoring hafalan Al-Qur’an santri.',
                 'author' => 'Tim Riset Kampus',
                 'date' => '2024-04-01',
-                'image_url' => 'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d',
-                'education_level' => 'KAMPUS',
+                'imageUrl' => 'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d',
+                'jenjang' => 'KAMPUS',
             ],
             [
                 'title' => 'Komposter Digital Sekolah',
@@ -74,8 +74,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Pengolahan sampah organik sekolah berbasis sensor.',
                 'author' => 'Tim MTs',
                 'date' => '2024-03-01',
-                'image_url' => 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
-                'education_level' => 'SMPT',
+                'imageUrl' => 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+                'jenjang' => 'SMPT',
             ],
             [
                 'title' => 'Website Profil Sekolah',
@@ -83,8 +83,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Pengembangan website profil sekolah berbasis React & Laravel.',
                 'author' => 'Tim IT MA',
                 'date' => '2024-03-01',
-                'image_url' => 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-                'education_level' => 'MA',
+                'imageUrl' => 'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
+                'jenjang' => 'MA',
             ],
             [
                 'title' => 'Media Pembelajaran Interaktif MI',
@@ -92,8 +92,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Media pembelajaran berbasis animasi untuk siswa MI.',
                 'author' => 'Guru MI',
                 'date' => '2024-02-01',
-                'image_url' => 'https://images.unsplash.com/photo-1513258496099-48168024aec0',
-                'education_level' => 'MI',
+                'imageUrl' => 'https://images.unsplash.com/photo-1513258496099-48168024aec0',
+                'jenjang' => 'MI',
             ],
             [
                 'title' => 'Sistem Absensi QR Code',
@@ -101,8 +101,8 @@ class ProjectSeeder extends Seeder
                 'description' => 'Sistem absensi santri menggunakan QR Code dan dashboard web.',
                 'author' => 'Tim MA',
                 'date' => '2024-02-01',
-                'image_url' => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c',
-                'education_level' => 'MA',
+                'imageUrl' => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c',
+                'jenjang' => 'MA',
             ],
         ];
 
