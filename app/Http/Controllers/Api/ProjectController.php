@@ -11,7 +11,8 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return response()->json(['data' => Project::all()]);
+        $projects = Project::orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $projects]);
     }
 
     public function show($id)
@@ -27,8 +28,10 @@ class ProjectController extends Controller
 
     public function limit($count)
     {
-        $limitedProjects = Project::limit($count)->get();
-        return response()->json(['data' => $limitedProjects]);
+        $projects = Project::orderBy('created_at', 'desc')
+                ->limit($count)
+                ->get();
+        return response()->json(['data' => $projects]);
     }
 
     public function store(Request $request)

@@ -11,7 +11,8 @@ class JournalController extends Controller
 {
     public function index()
     {
-        return response()->json(['data' => Journal::all()]);
+        $journals = Journal::orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $journals]);
     }
 
     public function show($id)
@@ -27,8 +28,16 @@ class JournalController extends Controller
 
     public function limit($count)
     {
-        $limitedJournals = Journal::limit($count)->get();
-        return response()->json(['data' => $limitedJournals]);
+        $journals = Journal::orderBy('created_at', 'desc')
+                ->limit($count)
+                ->get();
+        return response()->json(['data' => $journals]);
+    }
+
+    public function best()
+    {
+        $bestJournals = Journal::where('is_best', true)->latest()->get();
+        return response()->json(['data' => $bestJournals]);
     }
 
     public function store(Request $request)

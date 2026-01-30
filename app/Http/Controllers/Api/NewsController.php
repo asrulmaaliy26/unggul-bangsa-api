@@ -11,7 +11,8 @@ class NewsController extends Controller
 {
     public function index()
     {
-        return response()->json(['data' => News::all()]);
+        $news = News::orderBy('created_at', 'desc')->get();
+        return response()->json(['data' => $news]);
     }
 
     public function show($id)
@@ -25,10 +26,17 @@ class NewsController extends Controller
         return response()->json(['data' => $item]);
     }
 
-    public function limit($count)
+    public function limit($count, $jenjang = null)
     {
-        $limitedNews = News::limit($count)->get();
-        return response()->json(['data' => $limitedNews]);
+        $query = News::orderBy('created_at', 'desc');
+
+        // Jika ada parameter jenjang, filter dulu
+        if ($jenjang) {
+            $query->where('jenjang', $jenjang);
+        }
+
+        $news = $query->limit($count)->get();
+        return response()->json(['data' => $news]);
     }
 
     public function store(Request $request)
