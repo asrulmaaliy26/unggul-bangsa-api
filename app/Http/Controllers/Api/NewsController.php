@@ -124,30 +124,26 @@ class NewsController extends Controller
             $news->main_image = url('storage/' . $mainImagePath);
         }
 
-        // Update gallery if provided
+        // Update gallery if provided (APPEND new images)
         if ($request->hasFile('gallery')) {
-            // Delete old gallery images
-            if ($news->gallery) {
-                foreach ($news->gallery as $oldGalleryUrl) {
-                    $oldPath = str_replace(url('storage/'), '', $oldGalleryUrl);
-                    if (Storage::disk('public')->exists($oldPath)) {
-                        Storage::disk('public')->delete($oldPath);
-                    }
-                }
-            }
-
             $galleryPaths = [];
             foreach ($request->file('gallery') as $image) {
                 $galleryPaths[] = $image->store('news/gallery', 'public');
             }
-            $news->gallery = collect($galleryPaths)->map(fn ($p) => url('storage/' . $p))->toArray();
+            
+            // Convert to URLs
+            $newGalleryUrls = collect($galleryPaths)->map(fn ($p) => url('storage/' . $p))->toArray();
+            
+            // Merge with existing gallery
+            $currentGallery = $news->gallery ?? [];
+            $news->gallery = array_merge($currentGallery, $newGalleryUrls);
         }
 
         // Update other fields
         if ($request->has('title')) $news->title = $request->title;
         if ($request->has('excerpt')) $news->excerpt = $request->excerpt;
         if ($request->has('content')) $news->content = $request->input('content');
-        if ($request->filled('date')) $news->date = $request->date; // Fix: Only update date if filled
+        if ($request->filled('date')) $news->date = $request->date;
         if ($request->has('category')) $news->category = $request->category;
         if ($request->has('level')) $news->level = $request->input('level');
         if ($request->has('jenjang')) $news->jenjang = $request->jenjang;
@@ -157,6 +153,43 @@ class NewsController extends Controller
         return response()->json([
             'message' => 'Berita berhasil diupdate',
             'data' => $news,
+        ], 200);
+    }
+
+    public function deleteGalleryImage(Request $request, $id)
+    {
+        $request->validate([
+            'image_url' => 'required|string'
+        ]);
+
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Berita tidak ditemukan'], 404);
+        }
+
+        $gallery = $news->gallery ?? [];
+        $targetUrl = $request->image_url;
+        
+        // Cek apakah image ada di gallery
+        if (!in_array($targetUrl, $gallery)) {
+            return response()->json(['message' => 'Gambar tidak ditemukan di gallery'], 404);
+        }
+
+        // Hapus dari array (filter out the matching URL)
+        $updatedGallery = array_values(array_filter($gallery, fn($url) => $url !== $targetUrl));
+        $news->gallery = $updatedGallery;
+        $news->save();
+
+        // Hapus file fisik
+        $path = str_replace(url('storage/'), '', $targetUrl);
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        return response()->json([
+            'message' => 'Gambar berhasil dihapus dari gallery',
+            'data' => $news->gallery
         ], 200);
     }
 

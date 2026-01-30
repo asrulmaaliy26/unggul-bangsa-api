@@ -132,19 +132,9 @@ class ProjectController extends Controller
             $project->imageUrl = url('storage/' . $imagePath);
         }
 
-        // Update documents if provided
+        // Update documents if provided (APPEND new documents)
         if ($request->hasFile('documents')) {
-            // Delete old documents
-            if ($project->documents) {
-                foreach ($project->documents as $oldDoc) {
-                    $oldPath = str_replace(url('storage/'), '', $oldDoc['url']);
-                    if (Storage::disk('public')->exists($oldPath)) {
-                        Storage::disk('public')->delete($oldPath);
-                    }
-                }
-            }
-
-            $documentsData = [];
+            $newDocumentsData = [];
             $documents = $request->file('documents');
             $documentTypes = $request->input('document_types', []);
             $documentTitles = $request->input('document_titles', []);
@@ -154,14 +144,17 @@ class ProjectController extends Controller
                 $extension = $document->getClientOriginalExtension();
                 $originalName = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
 
-                $documentsData[] = [
+                $newDocumentsData[] = [
                     'url' => url('storage/' . $path),
                     'type' => $documentTypes[$index] ?? 'document',
                     'title' => $documentTitles[$index] ?? $originalName,
                     'format' => strtolower($extension),
                 ];
             }
-            $project->documents = $documentsData;
+            
+            // Merge with existing documents
+            $currentDocuments = $project->documents ?? [];
+            $project->documents = array_merge($currentDocuments, $newDocumentsData);
         }
 
         // Update other fields
@@ -169,7 +162,7 @@ class ProjectController extends Controller
         if ($request->has('category')) $project->category = $request->category;
         if ($request->has('description')) $project->description = $request->description;
         if ($request->has('author')) $project->author = $request->author;
-        if ($request->filled('date')) $project->date = $request->date; // Fix: Only update date if filled
+        if ($request->filled('date')) $project->date = $request->date;
         if ($request->has('jenjang')) $project->jenjang = $request->jenjang;
 
         $project->save();
@@ -177,6 +170,51 @@ class ProjectController extends Controller
         return response()->json([
             'message' => 'Proyek berhasil diupdate',
             'data' => $project,
+        ], 200);
+    }
+
+    public function deleteDocument(Request $request, $id)
+    {
+        $request->validate([
+            'document_url' => 'required|string'
+        ]);
+
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Proyek tidak ditemukan'], 404);
+        }
+
+        $documents = $project->documents ?? [];
+        $targetUrl = $request->document_url;
+        
+        // Cari index dokumen yang ingin dihapus
+        $foundIndex = -1;
+        foreach ($documents as $index => $doc) {
+            if (isset($doc['url']) && $doc['url'] === $targetUrl) {
+                $foundIndex = $index;
+                break;
+            }
+        }
+
+        if ($foundIndex === -1) {
+            return response()->json(['message' => 'Dokumen tidak ditemukan'], 404);
+        }
+
+        // Hapus dari array
+        array_splice($documents, $foundIndex, 1);
+        $project->documents = array_values($documents);
+        $project->save();
+
+        // Hapus file fisik
+        $path = str_replace(url('storage/'), '', $targetUrl);
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        return response()->json([
+            'message' => 'Dokumen berhasil dihapus',
+            'data' => $project->documents
         ], 200);
     }
 

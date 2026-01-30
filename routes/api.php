@@ -31,6 +31,7 @@ Route::get('/news', [NewsController::class, 'index']);
 Route::post('/news', [NewsController::class, 'store']);
 Route::put('/news/{id}', [NewsController::class, 'update']);
 Route::delete('/news/{id}', [NewsController::class, 'destroy']); // Added DELETE
+Route::delete('/news/{id}/gallery', [NewsController::class, 'deleteGalleryImage']); // Added Gallery DELETE
 Route::get('/news/limit/{count}/{jenjang?}', [NewsController::class, 'limit']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
@@ -39,6 +40,7 @@ Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']); // Added DELETE
+Route::delete('/projects/{id}/document', [ProjectController::class, 'deleteDocument']); // Added Document DELETE
 Route::get('/projects/limit/{count}', [ProjectController::class, 'limit']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 
