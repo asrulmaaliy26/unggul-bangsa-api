@@ -75,4 +75,81 @@ class JournalController extends Controller
             'data' => $journal,
         ], 201);
     }
+
+    public function update(Request $request, $id)
+    {
+        $journal = Journal::find($id);
+
+        if (!$journal) {
+            return response()->json(['message' => 'Jurnal tidak ditemukan'], 404);
+        }
+
+        $request->validate([
+            'title' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'abstract' => 'nullable|string',
+            'author' => 'nullable|string|max:255',
+            'mentor' => 'nullable|string|max:255',
+            'score' => 'nullable|integer|min:0|max:100',
+            'date' => 'nullable|date',
+            'is_best' => 'nullable|boolean',
+            'jenjang' => 'nullable|string',
+            'documentUrl' => 'nullable|file|mimes:pdf|max:10240',
+        ]);
+
+        // Update PDF document if provided
+        if ($request->hasFile('documentUrl')) {
+            // Delete old document
+            if ($journal->documentUrl) {
+                $oldPath = str_replace(url('storage/'), '', $journal->documentUrl);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            $documentPath = $request->file('documentUrl')->store('journals/documents', 'public');
+            $journal->documentUrl = url('storage/' . $documentPath);
+        }
+
+        // Update other fields
+        if ($request->has('title')) $journal->title = $request->title;
+        if ($request->has('category')) $journal->category = $request->category;
+        if ($request->has('abstract')) $journal->abstract = $request->abstract;
+        if ($request->has('author')) $journal->author = $request->author;
+        if ($request->has('mentor')) $journal->mentor = $request->mentor;
+        if ($request->has('score')) $journal->score = $request->score;
+        if ($request->filled('date')) $journal->date = $request->date; // Fix: Only update date if filled
+        if ($request->has('is_best')) $journal->is_best = $request->input('is_best');
+        if ($request->has('jenjang')) $journal->jenjang = $request->jenjang;
+
+        $journal->save();
+
+        return response()->json([
+            'message' => 'Jurnal berhasil diupdate',
+            'data' => $journal,
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $journal = Journal::find($id);
+
+        if (!$journal) {
+            return response()->json(['message' => 'Jurnal tidak ditemukan'], 404);
+        }
+
+        // Delete PDF document
+        if ($journal->documentUrl) {
+            $oldPath = str_replace(url('storage/'), '', $journal->documentUrl);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
+            }
+        }
+
+        $journal->delete();
+
+        return response()->json([
+            'message' => 'Jurnal berhasil dihapus'
+        ], 200);
+    }
 }

@@ -95,5 +95,120 @@ class ProjectController extends Controller
             'data' => $project,
         ], 201);
     }
-}
 
+    public function update(Request $request, $id)
+    {
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Proyek tidak ditemukan'], 404);
+        }
+
+        $request->validate([
+            'title' => 'nullable|string',
+            'category' => 'nullable|string',
+            'description' => 'nullable|string',
+            'author' => 'nullable|string',
+            'date' => 'nullable|date',
+            'jenjang' => 'nullable|string',
+            'imageUrl' => 'nullable|image|max:2048',
+            'documents.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:5120',
+            'document_types.*' => 'nullable|string',
+            'document_titles.*' => 'nullable|string',
+        ]);
+
+        // Update image if provided
+        if ($request->hasFile('imageUrl')) {
+            // Delete old image
+            $oldPath = str_replace(url('storage/'), '', $project->imageUrl);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $imagePath = $request->file('imageUrl')->store('projects/images', 'public');
+            $project->imageUrl = url('storage/' . $imagePath);
+        }
+
+        // Update documents if provided
+        if ($request->hasFile('documents')) {
+            // Delete old documents
+            if ($project->documents) {
+                foreach ($project->documents as $oldDoc) {
+                    $oldPath = str_replace(url('storage/'), '', $oldDoc['url']);
+                    if (Storage::disk('public')->exists($oldPath)) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            }
+
+            $documentsData = [];
+            $documents = $request->file('documents');
+            $documentTypes = $request->input('document_types', []);
+            $documentTitles = $request->input('document_titles', []);
+
+            foreach ($documents as $index => $document) {
+                $path = $document->store('projects/documents', 'public');
+                $extension = $document->getClientOriginalExtension();
+                $originalName = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $documentsData[] = [
+                    'url' => url('storage/' . $path),
+                    'type' => $documentTypes[$index] ?? 'document',
+                    'title' => $documentTitles[$index] ?? $originalName,
+                    'format' => strtolower($extension),
+                ];
+            }
+            $project->documents = $documentsData;
+        }
+
+        // Update other fields
+        if ($request->has('title')) $project->title = $request->title;
+        if ($request->has('category')) $project->category = $request->category;
+        if ($request->has('description')) $project->description = $request->description;
+        if ($request->has('author')) $project->author = $request->author;
+        if ($request->filled('date')) $project->date = $request->date; // Fix: Only update date if filled
+        if ($request->has('jenjang')) $project->jenjang = $request->jenjang;
+
+        $project->save();
+
+        return response()->json([
+            'message' => 'Proyek berhasil diupdate',
+            'data' => $project,
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $project = Project::find($id);
+
+        if (!$project) {
+            return response()->json(['message' => 'Proyek tidak ditemukan'], 404);
+        }
+
+        // Delete project image
+        if ($project->imageUrl) {
+            $path = str_replace(url('storage/'), '', $project->imageUrl);
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+        }
+
+        // Delete documents
+        if ($project->documents) {
+            foreach ($project->documents as $document) {
+                if (isset($document['url'])) {
+                    $path = str_replace(url('storage/'), '', $document['url']);
+                    if (Storage::disk('public')->exists($path)) {
+                        Storage::disk('public')->delete($path);
+                    }
+                }
+            }
+        }
+
+        $project->delete();
+
+        return response()->json([
+            'message' => 'Proyek berhasil dihapus'
+        ], 200);
+    }
+}

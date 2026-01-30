@@ -29,18 +29,24 @@ Route::get('/home', [HomeController::class, 'index']);
 // News Routes
 Route::get('/news', [NewsController::class, 'index']);
 Route::post('/news', [NewsController::class, 'store']);
+Route::put('/news/{id}', [NewsController::class, 'update']);
+Route::delete('/news/{id}', [NewsController::class, 'destroy']); // Added DELETE
 Route::get('/news/limit/{count}', [NewsController::class, 'limit']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
 // Project Routes
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
+Route::put('/projects/{id}', [ProjectController::class, 'update']);
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy']); // Added DELETE
 Route::get('/projects/limit/{count}', [ProjectController::class, 'limit']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 
 // Journal Routes
 Route::get('/journals', [JournalController::class, 'index']);
 Route::post('/journals', [JournalController::class, 'store']);
+Route::put('/journals/{id}', [JournalController::class, 'update']);
+Route::delete('/journals/{id}', [JournalController::class, 'destroy']); // Added DELETE
 Route::get('/journals/{id}', [JournalController::class, 'show']);
 Route::get('/journals/limit/{count}', [JournalController::class, 'limit']);
 

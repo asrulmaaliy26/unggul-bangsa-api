@@ -20,6 +20,7 @@ Accept: application/json
 | content | string | ✅ Yes | Konten lengkap berita |
 | date | date | ✅ Yes | Tanggal berita (format: YYYY-MM-DD) |
 | category | string | ✅ Yes | Kategori berita |
+| level | string | ❌ No | Tingkat prestasi (Nasional, Regional, dll) - Opsional |
 | jenjang | string | ✅ Yes | Jenjang pendidikan (tk/mi/smp/ma/stai) |
 | main_image | file | ✅ Yes | Gambar utama (max 2MB) |
 | gallery[] | file[] | ❌ No | Array gambar galeri (max 2MB per file) |
@@ -36,6 +37,7 @@ curl -X POST http://localhost:8000/api/news \
   -F "content=Pada tanggal 25 Januari 2026, siswa kelas 6 MI Al-Hidayah atas nama Ahmad Fauzi berhasil meraih medali emas dalam Olimpiade Matematika Nasional yang diselenggarakan di Jakarta. Prestasi ini merupakan yang pertama kali diraih oleh sekolah kami." \
   -F "date=2026-01-25" \
   -F "category=Prestasi" \
+  -F "level=Nasional" \
   -F "jenjang=mi" \
   -F "main_image=@C:/path/to/your/image.jpg"
 ```

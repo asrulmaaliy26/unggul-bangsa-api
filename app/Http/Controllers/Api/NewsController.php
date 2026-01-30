@@ -39,6 +39,7 @@ class NewsController extends Controller
             'content' => 'required|string',
             'date' => 'required|date',
             'category' => 'required|string',
+            'level' => 'nullable|string',
             'jenjang' => 'required|string',
             'main_image' => 'required|image|max:2048',
             'gallery.*' => 'nullable|image|max:2048',
@@ -71,6 +72,7 @@ class NewsController extends Controller
             'date' => $request->date,
             'views' => 0,
             'category' => $request->category,
+            'level' => $request->input('level'),
             'jenjang' => $request->jenjang,
             'main_image' => url('storage/' . $mainImagePath),
             'gallery' => collect($galleryPaths)->map(fn ($p) => url('storage/' . $p))->toArray(),
@@ -80,5 +82,106 @@ class NewsController extends Controller
             'message' => 'Berita berhasil ditambahkan',
             'data' => $news,
         ], 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Berita tidak ditemukan'], 404);
+        }
+
+        $request->validate([
+            'title' => 'nullable|string',
+            'excerpt' => 'nullable|string',
+            'content' => 'nullable|string',
+            'date' => 'nullable|date',
+            'category' => 'nullable|string',
+            'level' => 'nullable|string',
+            'jenjang' => 'nullable|string',
+            'main_image' => 'nullable|image|max:2048',
+            'gallery.*' => 'nullable|image|max:2048',
+        ]);
+
+        // Update main image if provided
+        if ($request->hasFile('main_image')) {
+            // Delete old image
+            $oldPath = str_replace(url('storage/'), '', $news->main_image);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $mainImagePath = $request->file('main_image')->store('news/main', 'public');
+            $news->main_image = url('storage/' . $mainImagePath);
+        }
+
+        // Update gallery if provided
+        if ($request->hasFile('gallery')) {
+            // Delete old gallery images
+            if ($news->gallery) {
+                foreach ($news->gallery as $oldGalleryUrl) {
+                    $oldPath = str_replace(url('storage/'), '', $oldGalleryUrl);
+                    if (Storage::disk('public')->exists($oldPath)) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            }
+
+            $galleryPaths = [];
+            foreach ($request->file('gallery') as $image) {
+                $galleryPaths[] = $image->store('news/gallery', 'public');
+            }
+            $news->gallery = collect($galleryPaths)->map(fn ($p) => url('storage/' . $p))->toArray();
+        }
+
+        // Update other fields
+        if ($request->has('title')) $news->title = $request->title;
+        if ($request->has('excerpt')) $news->excerpt = $request->excerpt;
+        if ($request->has('content')) $news->content = $request->input('content');
+        if ($request->filled('date')) $news->date = $request->date; // Fix: Only update date if filled
+        if ($request->has('category')) $news->category = $request->category;
+        if ($request->has('level')) $news->level = $request->input('level');
+        if ($request->has('jenjang')) $news->jenjang = $request->jenjang;
+
+        $news->save();
+
+        return response()->json([
+            'message' => 'Berita berhasil diupdate',
+            'data' => $news,
+        ], 200);
+    }
+
+    public function destroy($id)
+    {
+        $news = News::find($id);
+
+        if (!$news) {
+            return response()->json(['message' => 'Berita tidak ditemukan'], 404);
+        }
+
+        // Delete main image
+        if ($news->main_image) {
+            $path = str_replace(url('storage/'), '', $news->main_image);
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+        }
+
+        // Delete gallery images
+        if ($news->gallery) {
+            foreach ($news->gallery as $imageUrl) {
+                $path = str_replace(url('storage/'), '', $imageUrl);
+                if (Storage::disk('public')->exists($path)) {
+                    Storage::disk('public')->delete($path);
+                }
+            }
+        }
+
+        $news->delete();
+
+        return response()->json([
+            'message' => 'Berita berhasil dihapus'
+        ], 200);
     }
 }
