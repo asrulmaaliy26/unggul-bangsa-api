@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 use App\Http\Controllers\Api\{
     HomeController,
     NewsController,
@@ -16,27 +12,48 @@ use App\Http\Controllers\Api\{
     ConfigJenjangController
 };
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+*/
+
+// Home Route
 Route::get('/home', [HomeController::class, 'index']);
 
+// News Routes
 Route::get('/news', [NewsController::class, 'index']);
 Route::post('/news', [NewsController::class, 'store']);
 Route::get('/news/limit/{count}', [NewsController::class, 'limit']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
+// Project Routes
 Route::get('/projects', [ProjectController::class, 'index']);
+Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects/limit/{count}', [ProjectController::class, 'limit']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
 
+// Journal Routes
 Route::get('/journals', [JournalController::class, 'index']);
+Route::post('/journals', [JournalController::class, 'store']);
 Route::get('/journals/{id}', [JournalController::class, 'show']);
 Route::get('/journals/limit/{count}', [JournalController::class, 'limit']);
 
+// Facility Routes
 Route::get('/facilities', [FacilityController::class, 'index']);
 Route::get('/facilities/{id}', [FacilityController::class, 'show']);
 Route::get('/facilities/limit/{count}', [FacilityController::class, 'limit']);
 
+// About Route
 Route::get('/about/{jenjang}', [AboutController::class, 'show']);
 
+// Category Routes
 Route::get('/categories', [CategoryController::class, 'index']);
 
+// Jenjang Routes
 Route::get('/jenjang', [ConfigJenjangController::class, 'levels']);
