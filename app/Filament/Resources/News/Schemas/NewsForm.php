@@ -96,7 +96,9 @@ class NewsForm
                     FileUpload::make('main_image')
                         ->label('Gambar Utama')
                         ->image()
+                        ->disk('public')
                         ->directory('news/main')
+                        ->visibility('public')
                         ->required()
                         ->maxSize(2048) // 2MB
                         ->deletable()
@@ -107,7 +109,9 @@ class NewsForm
                         ->label('Galeri Foto')
                         ->multiple()
                         ->image()
+                        ->disk('public')
                         ->directory('news/gallery')
+                        ->visibility('public')
                         ->maxSize(2048)
                         ->deletable()
                         ->reorderable()
@@ -120,7 +124,9 @@ class NewsForm
                         ->placeholder('Tulis isi berita secara detail...')
                         ->required()
                         ->columnSpanFull()
-                        ->fileAttachmentsDirectory('news/attachments'),
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsDirectory('news/attachments')
+                        ->fileAttachmentsVisibility('public'),
                 ]);
     }
 }

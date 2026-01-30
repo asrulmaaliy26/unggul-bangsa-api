@@ -103,7 +103,9 @@ class JournalForm
                         FileUpload::make('documentUrl')
                             ->label('Dokumen Jurnal (PDF)')
                             ->acceptedFileTypes(['application/pdf'])
+                            ->disk('public')
                             ->directory('journals/documents')
+                            ->visibility('public')
                             ->required()
                             ->maxSize(10240) // 10MB
                             ->deletable()

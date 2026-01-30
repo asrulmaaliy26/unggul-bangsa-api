@@ -79,7 +79,9 @@ class ProjectForm
                 FileUpload::make('imageUrl')
                     ->label('Gambar Project')
                     ->image()
+                    ->disk('public')
                     ->directory('projects/images')
+                    ->visibility('public')
                     ->required()
                     ->maxSize(5120) // 5MB
                     ->deletable()
@@ -118,7 +120,9 @@ class ProjectForm
                                 'application/vnd.ms-powerpoint',
                                 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                             ])
+                            ->disk('public')
                             ->directory('projects/documents')
+                            ->visibility('public')
                             ->required()
                             ->maxSize(10240) // 10MB
                             ->deletable()
