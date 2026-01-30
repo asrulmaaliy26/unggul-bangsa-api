@@ -61,7 +61,8 @@ class JournalForm
                                 'UMUM' => 'Umum',
                             ])
                             ->required()
-                            ->native(false),
+                            ->native(false)
+                            ->dehydrateStateUsing(fn ($state) => strtoupper($state)),
 
                         // Penulis
                         TextInput::make('author')

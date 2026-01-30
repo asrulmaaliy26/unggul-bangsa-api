@@ -60,7 +60,8 @@ class ProjectForm
                         'UMUM' => 'Umum',
                     ])
                     ->required()
-                    ->native(false),
+                    ->native(false)
+                    ->dehydrateStateUsing(fn ($state) => strtoupper($state)),
 
                 // Penulis/Author
                 TextInput::make('author')

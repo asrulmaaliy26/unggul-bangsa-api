@@ -66,7 +66,8 @@ class NewsForm
                             'UMUM' => 'Umum',
                         ])
                         ->required()
-                        ->native(false),
+                        ->native(false)
+                        ->dehydrateStateUsing(fn ($state) => strtoupper($state)),
 
                     // Tingkat Prestasi (Kondisional: Hanya jika kategori == Prestasi)
                     Select::make('level')

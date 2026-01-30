@@ -27,7 +27,7 @@ class CategoryController extends Controller
                 'Sosial Humaniora'
             ],
             'news_categories' => [
-                'Semua', 'Akademik', 'Kegiatan', 'Pengumuman', 'Prestasi'
+                'Semua', 'Prestasi', 'Kegiatan', 'Akademik', 'Pengumuman'
             ]
         ]);
     }

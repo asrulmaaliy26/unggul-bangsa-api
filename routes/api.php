@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\{
     FacilityController,
     AboutController,
     CategoryController,
-    ConfigJenjangController
+    ConfigJenjangController,
+    MessageController
 };
 
 /*
@@ -33,6 +34,7 @@ Route::put('/news/{id}', [NewsController::class, 'update']);
 Route::delete('/news/{id}', [NewsController::class, 'destroy']); // Added DELETE
 Route::delete('/news/{id}/gallery', [NewsController::class, 'deleteGalleryImage']); // Added Gallery DELETE
 Route::get('/news/limit/{count}/{jenjang?}', [NewsController::class, 'limit']);
+Route::get('/news/category/{category}', [NewsController::class, 'getByCategory']); // Filter by Category
 Route::get('/news/{id}', [NewsController::class, 'show']);
 
 // Project Routes
@@ -66,3 +68,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 // Jenjang Routes
 Route::get('/jenjang', [ConfigJenjangController::class, 'levels']);
+
+// Contact & Complaint Routes
+Route::post('/contact-us', [MessageController::class, 'storeContact']);
+Route::post('/complaints', [MessageController::class, 'storeComplaint']);

@@ -18,7 +18,11 @@ class FacilityForm
                         'SMPT' => 'SMPT',
                         'MI' => 'MI',
                     ])->required(),
-                \Filament\Forms\Components\TextInput::make('type')->required(),
+                \Filament\Forms\Components\Select::make('type')->required()
+                    ->options([
+                        'ekstra' => 'ekstra',
+                        'fasilitas' => 'fasilitas',
+                    ])->required(),
                 \Filament\Forms\Components\FileUpload::make('imageUrl')
                     ->image()
                     ->disk('public')
