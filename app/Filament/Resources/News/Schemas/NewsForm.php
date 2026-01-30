@@ -49,7 +49,7 @@ class NewsForm
                             'Seminar' => 'Seminar',
                             'Lainnya' => 'Lainnya',
                         ])
-                        ->default('Prestasi')
+                        ->default('Kegiatan')
                         ->required()
                         ->live() // Agar re-render untuk field Level
                         ->native(false),

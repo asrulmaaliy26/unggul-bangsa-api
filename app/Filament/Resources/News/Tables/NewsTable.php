@@ -26,6 +26,7 @@ class NewsTable
             ->recordActions([
                 EditAction::make(),
             ])
+            ->actionsPosition(\Filament\Tables\Enums\RecordActionsPosition::BeforeColumns)
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
